@@ -92,18 +92,21 @@ value:Bool | Optional          | The output value after initiation. Default:Fals
 ```
 import SwiftIO
 
+func main(){
 
-let outputPin0 = DigitalOut(.D0)
-//The most simple way of initiating a pin D0, with all other parameters set to default.
+    let outputPin0 = DigitalOut(.D0)
+    //The most simple way of initiating a pin D0, with all other parameters set to default.
 
-let outputPin1 = DigitalOut(.D1, mode:.openDrain)
-//Initiate the pin D1 with the output mode openDrain
+    let outputPin1 = DigitalOut(.D1, mode:.openDrain)
+    //Initiate the pin D1 with the output mode openDrain
 
-let outputPin2 = DigitalOut(.D2, value:True)
-//Initiate the pin D2 with a High voltage output after initiation
+    let outputPin2 = DigitalOut(.D2, value:True)
+    //Initiate the pin D2 with a High voltage output after initiation
 
-let outputPin3 = DigitalOut(.D3, mode:.openDrain, value:True)
-//Initiate the pin D3 with the openDrain mode and a High voltage output after initiation.
+    let outputPin3 = DigitalOut(.D3, mode:.openDrain, value:True)
+    //Initiate the pin D3 with the openDrain mode and a High voltage output after initiation.
+
+}
 ```
 
 ## 2\. Change Output Mode
