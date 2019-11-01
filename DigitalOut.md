@@ -50,19 +50,20 @@ Low (0V)             | False
 Be aware that the result of this function **has nothing to do with the actual output of the pin.**<br>
 For example, the pin is set to high but it is short to ground. The actual pin voltage would be low but since it is set to high, the function would return true.
 
-## example code
+## Sample code
 
 ```
 import SwiftIO
 
 func main() {
-//Create a DigitalOut to .D0
-let pin = DigitalOut(.D0)
-//Reverse the output value every 1 second
-while true {
-pin.toggle()
-sleep(ms:1000)
-}
+    let pin = DigitalOut(.RED)
+    //initiate a DigitalOut to the Red LED
+
+    while true {
+      pin.toggle()
+      sleep(ms:1000)
+      //Toggle the output of the pin every 1000 ms.
+    }
 }
 ```
 
