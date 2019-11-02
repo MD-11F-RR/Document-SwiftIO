@@ -16,12 +16,12 @@ After the initiation, the member functions of this class can be used freely. Her
 
 `public func write(_:bool)`
 
-This member function requires one bool type parameter.
+This member function requires one Boolean type parameter.
 
-Parameter | Output value
---------- | --------------------------
-True      | High voltage output (3.3V)
-False     | Low voltage output (0V)
+Input parameter | Output value
+--------------- | --------------------------
+True            | High voltage output (3.3V)
+False           | Low voltage output (0V)
 
 This function returns nothing.
 
@@ -40,7 +40,7 @@ Low (0V)              | High (3.3V)
 
 `public func getValue()`
 
-This function requires no parameter and returns the current output value in bool format.
+This function requires no parameter and returns the current output value in Boolean format.
 
 Current Output Value | Return Value
 -------------------- | ------------
@@ -112,3 +112,17 @@ func main(){
 ## 2\. Change Output Mode
 
 `public func setMode(_ mode: Mode)`
+
+This function changes the output mode after initiation. It accepts one parameter and returns nothing.
+
+Parameter | Description
+--------- | ----------------------------------------------------------------
+mode:Mode | The output mode of this output pin. Can be pushPull or openDrain
+
+## 3\. Get the Current Output mode
+
+`public func getMode()`
+
+This function returns the current output mode.
+
+- [ ] I don't know in which format would the function return the value
