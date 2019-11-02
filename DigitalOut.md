@@ -123,6 +123,39 @@ mode:Mode | The output mode of this output pin. Can be pushPull or openDrain
 
 `public func getMode()`
 
-This function returns the current output mode.
+This function returns the current output mode in a format of DigitalOut.Mode enumerate.
 
-- [ ] I don't know in which format would the function return the value
+### Sample code
+
+`pin.getMode() == DigitalOut.Mode.pushPull`
+
+--------------------------------------------------------------------------------
+
+# ENUMERATES USED IN THIS CLASS
+
+## 1\. Id
+
+The Id enumerate includes available digital pin. They are D0 ~ D37, RED, GREEN, BLUE.
+
+Reference the pin map for the location on board.
+
+Members in Id        | Description
+-------------------- | ------------------------------------------------------------------------------
+D0 ~ D25 & D38 ~ D45 | Normal digital pins available for DigitalOut class
+D26 ~ D37            | Digital pins that is not recommended to use unless necessary. Reference below.
+RED                  | Red LED on board. Low output to emit it
+GREEN                | Green LED on board. Low output to emit it
+BLUE                 | Blue LED on board. Low output to emit it
+
+**Attention!**<br>
+Using digital pin D26 ~ D37 is not recommended, as they are required to be pulled down upon startup of the MCU. After startup they act as normal digital pins.<br>
+If possible, use D0 ~ D38 first.
+
+## 2\. Mode
+
+The Mode enumerate includes the available output modes.
+
+Members in Mode | Description
+--------------- | ---------------------------------
+pushPull        | The default output mode, pushPull
+openDrain       | the openDrain output mode
