@@ -2,11 +2,33 @@
 
 The DigitalOut class is used to set a High or Low voltage output on a digital output pin. An initiation is required before using the member functions of this class.
 
+--------------------------------------------------------------------------------
+
 # INITIATION
 
-`public init(_:Id)`
+## Syntax
 
-An initiation requires only one parameter. That is the pin to output. reference the Id enumerate for all the available digital output pin.
+`public init(_ id:Id)`
+
+## Description
+
+An initiation of the class to a specific output pin.
+
+## Parameters
+
+`_ id:Id`: The output pin. Reference the Id enumerate for all the available digital output pin.
+
+## Sample code
+
+```swift
+import SwiftIO
+func main() {
+  let redLED = DigitalOut(.RED)
+  //initiate an output to the RED led on board.
+}
+```
+
+--------------------------------------------------------------------------------
 
 # BASIC USAGE
 
@@ -14,45 +36,85 @@ After the initiation, the member functions of this class can be used freely. Her
 
 ## 1\. Set a Value to the Output Pin
 
-`public func write(_:bool)`
+### Syntax
 
-This member function requires one Boolean type parameter.
+`public func write(_ :bool)`
 
-Input parameter | Output value
---------------- | --------------------------
-True            | High voltage output (3.3V)
-False           | Low voltage output (0V)
+### Description
+
+Use this function to set the output value of the specific pin.
+
+### Parameters
+
+`_ :bool`: The output value. Reference the table below
+
+`_ :bool` | Output value
+--------- | --------------------------
+True      | High voltage output (3.3V)
+False     | Low voltage output (0V)
 
 This function returns nothing.
 
+### Returns
+
+Nothing
+
 ## 2\. Toggle the Output Pin
+
+### Syntax
 
 `public func toggle()`
 
-This member function requires no parameter. When being used, the output value of that specific pin will be reversed.
+### Description
 
-Original output value | Output value afterwards
---------------------- | -----------------------
+This function will reverse the current output value of the specific pin.
+
+Original output value | Output value after using the function
+--------------------- | -------------------------------------
 High (3.3V)           | Low (0V)
 Low (0V)              | High (3.3V)
 
+### Parameters
+
+None
+
+### Returns
+
+Nothing
+
 ## 3\. Get the Current Output Value
+
+### Syntax
 
 `public func getValue()`
 
-This function requires no parameter and returns the current output value in Boolean format.
+### Description
+
+This function returns the current output value in Boolean format.
 
 Current Output Value | Return Value
 -------------------- | ------------
 High (3.3V)          | True
 Low (0V)             | False
 
-Be aware that the result of this function **has nothing to do with the actual output of the pin.**<br>
+### Parameters
+
+None
+
+### Returns
+
+Boolean
+
+### Caution
+
+The result of this function **has nothing to do with the actual output of the pin.**<br>
 For example, the pin is set to high but it is short to ground. The actual pin voltage would be low but since it is set to high, the function would return true.
+
+--------------------------------------------------------------------------------
 
 ## Sample code
 
-```
+```swift
 import SwiftIO
 
 func main() {
@@ -77,19 +139,23 @@ Upon initiation, the output Mode can be setup. The output mode can also be recon
 
 ## 1\. Advanced Initiation
 
+### Syntax
+
 `public init(_ id: Id, mode: Mode = .pushPull, value: Bool = false)`
 
-The initiation function requires only one parameter but it accepts up to three parameters.
+### Description
 
-Parameters | Required/Optional | Description
----------- | ----------------- | --------------------------------------------------------
-id:Id      | Required          | The name of output pin.
-mode:Mode  | Optional          | The output mode. pushPull or openDrain. Default:pushPull
-value:Bool | Optional          | The output value after initiation. Default:False
+Upon initiation, more parameters can be accepted to further configure the output pin.
+
+### Parameters
+
+`id:Id` : **REQUIRED** The name of output pin. Reference the Id enumerate.<br>
+`mode:Mode` : **OPTIONAL** The output mode of the pin. Default: push-pull. Can be open drain as well. See sample code below.<br>
+`value:Bool` : **OPTIONAL** The output value after initiation. Default:False The initiation function requires only one parameter but it accepts up to three parameters.
 
 ### Sample Code
 
-```
+```swift
 import SwiftIO
 
 func main(){
@@ -111,23 +177,54 @@ func main(){
 
 ## 2\. Change Output Mode
 
+### Syntax
+
 `public func setMode(_ mode: Mode)`
+
+### Description
 
 This function changes the output mode after initiation. It accepts one parameter and returns nothing.
 
-Parameter | Description
---------- | ----------------------------------------------------------------
-mode:Mode | The output mode of this output pin. Can be pushPull or openDrain
+### Parameters
+
+`mode:Mode` : The output mode of this output pin. Can be pushPull or openDrain
+
+### Returns
+
+Nothing
 
 ## 3\. Get the Current Output mode
 
+### Syntax
+
 `public func getMode()`
+
+### Description
 
 This function returns the current output mode in a format of DigitalOut.Mode enumerate.
 
+### Parameters
+
+None
+
+### Returns
+
+`DigitalOut.Mode`
+
 ### Sample code
 
-`pin.getMode() == DigitalOut.Mode.pushPull`
+```swift
+import SwiftIO
+func main() {
+  let pin = DigitalOut(.D0)
+  while true {
+      if pin.getMode() == DigitalOut.Mode.pushPull{
+          //do something
+      }
+  }
+
+}
+```
 
 --------------------------------------------------------------------------------
 
