@@ -34,6 +34,23 @@ func main() {
 
 After the initiation, the member functions of this class can be used freely. Here's some basic usage of this class.
 
+## Sample code
+
+```swift
+import SwiftIO
+
+func main() {
+    let pin = DigitalOut(.RED)
+    //initiate a DigitalOut to the Red LED
+
+    while true {
+      pin.toggle()
+      sleep(ms:1000)
+      //Toggle the output of the pin every 1000 ms.
+    }
+}
+```
+
 ## 1\. Set a Value to the Output Pin
 
 ### Syntax
@@ -52,8 +69,6 @@ Use this function to set the output value of the specific pin.
 --------- | --------------------------
 True      | High voltage output (3.3V)
 False     | Low voltage output (0V)
-
-This function returns nothing.
 
 ### Returns
 
@@ -108,26 +123,7 @@ Boolean
 ### Caution
 
 The result of this function **has nothing to do with the actual output of the pin.**<br>
-For example, the pin is set to high but it is short to ground. The actual pin voltage would be low but since it is set to high, the function would return true.
-
---------------------------------------------------------------------------------
-
-## Sample code
-
-```swift
-import SwiftIO
-
-func main() {
-    let pin = DigitalOut(.RED)
-    //initiate a DigitalOut to the Red LED
-
-    while true {
-      pin.toggle()
-      sleep(ms:1000)
-      //Toggle the output of the pin every 1000 ms.
-    }
-}
-```
+For example, the pin is set to high but it is short to ground. The actual pin voltage would be low. This function will still return `True` despite the actual low output, since this pin is set to HIGH.
 
 --------------------------------------------------------------------------------
 
