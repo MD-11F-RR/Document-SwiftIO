@@ -161,7 +161,7 @@ Upon initiation, the output Mode can be setup. The output mode can also be recon
 
 ### Description
 
-Upon initiation, more parameters can be accepted to further configure the output pin.
+Upon initiation, the output mode and output value right after initiation can be configured.
 
 ### Parameters
 
