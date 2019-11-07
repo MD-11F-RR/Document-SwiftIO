@@ -1,6 +1,8 @@
 # **The DigitalOut class**
 
-The DigitalOut class is used to set a High or Low voltage output on a digital output pin. An initiation is required before using the member functions of this class.
+The DigitalOut class is used to set a High or Low voltage output to a digital output pin. An initiation is required before using the member functions of this class.
+
+The driving capability of the digital output pins is not very strong. It is meant to be a **SIGNAL** output. It is not capable of driving a device requires a large current.
 
 --------------------------------------------------------------------------------
 
@@ -23,8 +25,8 @@ An initiation of the class to a specific output pin.
 ```swift
 import SwiftIO
 func main() {
-  let redLED = DigitalOut(.RED)
   //initiate an output to the RED led on board.
+  let redLED = DigitalOut(.RED)
 }
 ```
 
@@ -40,14 +42,32 @@ After the initiation, the member functions of this class can be used freely. Her
 import SwiftIO
 
 func main() {
-    let pin = DigitalOut(.RED)
     //initiate a DigitalOut to the Red LED
+    let redLED = DigitalOut(.RED)
 
     while true {
-      pin.toggle()
-      sleep(ms:1000)
       //Toggle the output of the pin every 1000 ms.
-    }
+      redLED.toggle()
+      sleep(ms:1000)
+      }
+}
+```
+
+Alternatively,
+
+```swift
+func main() {
+    //initiate a DigitalOut to the Green LED
+    let greenLED = DigitalOut(.GREEN)
+
+
+    while true {
+      //Toggle the output of the pin every 1000 ms using another member function.
+      greenLED.write(true)
+      sleep(ms:1000)
+      greenLED.write(false)
+      sleep(ms:1000)
+      }
 }
 ```
 
@@ -67,8 +87,8 @@ Use this function to set the output value of the specific pin.
 
 `_ :bool` | Output value
 --------- | --------------------------
-True      | High voltage output (3.3V)
-False     | Low voltage output (0V)
+`true`    | High voltage output (3.3V)
+`false`   | Low voltage output (0V)
 
 ### Returns
 
@@ -109,8 +129,8 @@ This function returns the current output value in Boolean format.
 
 Current Output Value | Return Value
 -------------------- | ------------
-High (3.3V)          | True
-Low (0V)             | False
+High (3.3V)          | `true`
+Low (0V)             | `false`
 
 ### Parameters
 
@@ -118,12 +138,12 @@ None
 
 ### Returns
 
-Boolean
+Boolean : `true` or `false`
 
 ### Caution
 
 The result of this function **has nothing to do with the actual output of the pin.**<br>
-For example, the pin is set to high but it is short to ground. The actual pin voltage would be low. This function will still return `True` despite the actual low output, since this pin is set to HIGH.
+For example, the pin is set to high but it is short to ground. The actual pin voltage would be low. This function will still return `true` despite the actual low output, since this pin is set to HIGH.
 
 --------------------------------------------------------------------------------
 
@@ -145,9 +165,9 @@ Upon initiation, more parameters can be accepted to further configure the output
 
 ### Parameters
 
-`id:Id` : **REQUIRED** The name of output pin. Reference the Id enumerate.<br>
-`mode:Mode` : **OPTIONAL** The output mode of the pin. Default: push-pull. Can be open drain as well. See sample code below.<br>
-`value:Bool` : **OPTIONAL** The output value after initiation. Default:False The initiation function requires only one parameter but it accepts up to three parameters.
+`id:Id` : **REQUIRED.** The name of output pin. Reference the Id enumerate.<br>
+`mode:Mode` : **OPTIONAL.** The output mode of the pin. Default: push-pull. Can be open drain as well. See sample code below.<br>
+`value:Bool` : **OPTIONAL.** The output value after initiation. Default:false The initiation function requires only one parameter but it accepts up to three parameters.
 
 ### Sample Code
 
@@ -155,18 +175,22 @@ Upon initiation, more parameters can be accepted to further configure the output
 import SwiftIO
 
 func main(){
+    //here's four way of initiating a DigitalOut class
 
+    //1\. The most simple way of initiating a pin D0, with all other parameters set to default.
     let outputPin0 = DigitalOut(.D0)
-    //The most simple way of initiating a pin D0, with all other parameters set to default.
 
+
+    //2\. Initiate the pin D1 with the output mode openDrain
     let outputPin1 = DigitalOut(.D1, mode:.openDrain)
-    //Initiate the pin D1 with the output mode openDrain
 
-    let outputPin2 = DigitalOut(.D2, value:True)
-    //Initiate the pin D2 with a High voltage output after initiation
 
-    let outputPin3 = DigitalOut(.D3, mode:.openDrain, value:True)
-    //Initiate the pin D3 with the openDrain mode and a High voltage output after initiation.
+    //3\. Initiate the pin D2 with a High voltage output after initiation
+    let outputPin2 = DigitalOut(.D2, value:true)
+
+
+    //4\. Initiate the pin D3 with the openDrain mode and a High voltage output after initiation.
+    let outputPin3 = DigitalOut(.D3, mode:.openDrain, value:true)
 
 }
 ```
@@ -228,7 +252,7 @@ func main() {
 
 ## 1\. Id
 
-The Id enumerate includes available digital pin. They are D0 ~ D37, RED, GREEN, BLUE.
+The Id enumerate includes available digital pin. They are D0 ~ D45, RED, GREEN, BLUE.
 
 Reference the pin map for the location on board.
 
