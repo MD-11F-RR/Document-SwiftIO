@@ -59,12 +59,12 @@ func main() {
   RLED.write(true)
 
   while true {
-      if sw.read() == true {
+      if sw.read() {
           //toggle the LED when the switch is triggered
           RLED.toggle()
 
           //anti flickering in case the switch is being hold down.
-          while sw.read()==true{}
+          while sw.read() {}
       }
   }
 }
@@ -134,7 +134,7 @@ Use this function to change the input mode after the initiation.
 
 ### Parameters
 
-`Mode` : The input mode. It can be pullDown, pullUp and pullNone.
+`Mode` : The input mode. It can be pullDown, pullUp and pullNone. Reference the Mode enumerate below.
 
 ### Returns
 
@@ -176,7 +176,7 @@ Use this function to set up an interruption. Also, the trigger of the interrupti
 
 `mode: InterruptMode` : **REQUIRED** The trigger of the Interruption. Can be `disable`, `rising`, `falling` and `bothEdge`.
 
-`callback: @escaping ()->Void` **REQUIRED** The interruption function. The return value of this function must be `void`
+`callback: @escaping ()->Void` **REQUIRED** The callback function. The return value of the interruption function must be `void`. After the interruption is triggered, this function will be executed.
 
 > It is not recommended to write an interruption that takes a long time to execute.
 
@@ -185,3 +185,128 @@ Use this function to set up an interruption. Also, the trigger of the interrupti
 ### Returns
 
 Nothing
+
+### Sample Code
+
+```swift
+import SwiftIO
+
+//initiate the digital pin D0 to act as the switch
+let swD0=DigitalIn(.D0)
+
+//initiate the red LED and set it to off.
+let RLED = DigitalOut(.RED,value:false)
+
+//the callback function
+func redswitch() {
+    RLED.toggle()
+}
+
+func main() {  
+    //set up the interruption
+    swD0.setInterrupt(.rising, callback:redswitch)
+
+    //hang the program with a loop.
+    while true{}
+}
+```
+
+There are also three other ways of writing the callback function.
+
+```swift
+
+let method2: ()->void = {
+  //do something here
+}
+
+let method3 = {
+  //do something here
+}
+```
+
+Alternatively, the callback function can be written together with the interruption setup function.
+
+```swift
+import SwiftIO
+
+//initiate the digital pin D0 to act as the switch
+let swD0=DigitalIn(.D0)
+
+//initiate the red LED and set it to off.
+let RLED = DigitalOut(.RED,value:false)
+
+
+func main() {  
+    //set up the interruption with the callback function
+    swD0.setInterrupt(.rising){
+      //the callback function
+      RLED.toggle()
+    }
+
+    //hang the program with a loop.
+    while true{}
+}
+```
+
+## 4\. Remove the Interruption Function
+
+### Syntax
+
+`public func removeCallback()`
+
+### Description
+
+This function is for advanced users.
+
+Use this function to remove the callback function.
+
+### Parameters
+
+None
+
+### Returns
+
+Nothing
+
+--------------------------------------------------------------------------------
+
+# ENUMERATES USED IN THIS CLASS
+
+## 1\. Id
+
+The Id enumerate includes available digital pin. They are D0 ~ D45, RED, GREEN, BLUE.
+
+Reference the pin map for the location on board.
+
+Members in Id        | Description
+-------------------- | ------------------------------------------------------------------------------
+D0 ~ D25 & D38 ~ D45 | Normal digital pins available for DigitalIn class
+D26 ~ D37            | Digital pins that is not recommended to use unless necessary. Reference below.
+RED                  | Red LED on board. Low output to emit it
+GREEN                | Green LED on board. Low output to emit it
+BLUE                 | Blue LED on board. Low output to emit it
+
+**Attention!**<br>
+Using digital pin D26 ~ D37 is not recommended, as they are required to be pulled down upon startup of the MCU. After startup they act as normal digital pins.<br>
+If possible, use D0 ~ D38 first.
+
+## 2\. Mode
+
+The Mode enumerate includes the available input modes.
+
+Members in Mode | Description
+--------------- | -------------------------------------------------------------
+pullUp          | The pin is pulled up to 3.3 V internally.
+pullDown        | The default option. The pin is pulled down to 0 V internally.
+pullNone        | The pin is not pulled. External pulling may be required.
+
+## 3\. InterruptMode
+
+This enumerate includes all the available interruption modes.
+
+Member   | Description
+-------- | ---------------------------------------------------------------------------
+disable  | No interruption will be triggered
+rising   | An interruption will be triggered upon the rising edge
+falling  | An interruption will be triggered upon the falling edge
+bothEdge | An interruption will be triggered upon both the rising and the falling edge
