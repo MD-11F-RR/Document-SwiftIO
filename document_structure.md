@@ -24,25 +24,29 @@ _Description_
 
 ## Sample code
 
-_code_
+`sample code for the class`
 
 ## 1\. Functions of the memnber function
 
 ### Syntax
 
-_code_
+`code`
 
 ### Description
 
 ### Parameters
 
+### Sample Code (If necessary)
+
 ### Returns
+
+## 2\. Repeat above
 
 --------------------------------------------------------------------------------
 
 # ADVANCED SETTINGS
 
-_Description_
+`Description`
 
 ## 1\. Advanced Initiation
 
@@ -52,9 +56,9 @@ _Description_
 
 ### Parameters
 
-### Sample Code
+### Sample Code (If necessary)
 
-## 2\. Change Output Mode
+## 2\. Advanced Function
 
 ### Syntax
 
@@ -62,12 +66,21 @@ _Description_
 
 ### Parameters
 
+### Sample Code (If necessary)
+
 ### Returns
+
+## 3\. Repeat above
 
 --------------------------------------------------------------------------------
 
 # ENUMERATES USED IN THIS CLASS
 
-## 1\. Id
+## 1\. Enumerate1
+
+Member in enumerate1 | Description
+-------------------- | ------------
+Member1              | Description1
+...                  | ...
 
 ## 2\. Mode
