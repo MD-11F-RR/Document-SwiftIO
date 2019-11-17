@@ -16,9 +16,11 @@ Currently the I2C ports support only master mode. Slave mode is still under deve
 
 An initiation of the class to a specific I2C interface as a master device.
 
+> Currently the I2C ports support only master mode.
+
 ## Parameters
 
-`Id` : The name of the interface.
+`Id` : **REQUIRED** The name of the I2C interface.
 
 > Currently there are two I2C interfaces available. They are I2C0 and I2C1.
 
@@ -34,7 +36,7 @@ let commI2C = I2C(.I2C0)
 
 # BASIC USAGE
 
-_Description_
+The I2C class allows some operations through I2C protocol, including reading messages from a device and writing messages to a device.
 
 ## Sample code
 
@@ -80,7 +82,7 @@ Use this function to read a Byte from a certain device
 
 ### Returns
 
-A Byte that the specific address sent to the I2C port.
+A Byte that the specific device sent to the I2C port.
 
 ## 3\. Write a Word to a Device
 
@@ -104,21 +106,53 @@ Use this function to write a Word to a specific device
 
 Nothing
 
+## 4\. Read a Word to a Device
+
+### Syntax
+
+`public func readWord(from address: UInt8) -> UInt16`
+
+### Description
+
+Use this function to read a Word from a specific device
+
+### Parameters
+
+`from address: UInt8` : **REQUIRED** The address of the device.
+
+### Sample Code
+
+### Returns
+
+A word that the specific device sent to the I2C port.
+
 --------------------------------------------------------------------------------
 
 # ADVANCED SETTINGS
 
-`Description`
+This class can be further configured by using the functions below.
+
+The speed of the I2C ports can be configured and changed. **_Other Funcs_**
 
 ## 1\. Advanced Initiation
 
 ### Syntax
 
+`public init(_ id: Id, speed: Speed = .standard)`
+
 ### Description
+
+The speed of the port can be configured upon initiation.
 
 ### Parameters
 
-### Sample Code (If necessary)
+`Id` : **REQUIRED** The name of the interface.
+
+`Speed` : **Optional** The speed of the I2C port. If not configured, it's set to be standard. Alternatively, `fast` and `fastPlus` is available.
+
+> Reference the Speed enumerate below for more information.
+
+### Sample Code
 
 ## 2\. Advanced Function
 
