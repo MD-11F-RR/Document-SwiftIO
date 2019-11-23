@@ -15,3 +15,9 @@
 # 3\. I2C
 
 - [ ] change the name of the speed enumerate
+
+# 4\. PWMOut
+
+- [ ] Add in a function to disable the PWM output, instead of entering a 0 pulse value.
+- [ ] The behavior of pulse > period is not defined. Suggestion: when the pulse is greater than period, make it a constant high voltage output
+- [ ] a function for easy server control? e.g. fix period to 3ms and a flexible period from 900 us to 2100 us with a center point of 1500us
